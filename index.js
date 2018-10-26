@@ -57,6 +57,9 @@ var unifiedServer = function (req, res) {
   //Get the headers as an object
   var headers = req.headers;
 
+  // Verify if the request is encrypted
+  const isSSL = typeof(req.socket.encrypted) == 'boolean' ? req.socket.encrypted : false;
+
   // Get the payload,if any
   var decoder = new StringDecoder('utf-8');
   var buffer = '';
@@ -75,7 +78,8 @@ var unifiedServer = function (req, res) {
       'queryStringObject': queryStringObject,
       'method': method,
       'headers': headers,
-      'payload': buffer
+      'payload': buffer,
+      'isSSL': isSSL
     };
 
     // Route the request to the handler specified in the router
@@ -109,6 +113,12 @@ handlers.ping = function (data, callback) {
   callback(200);
 }
 
+// Hello handler
+handlers.hello = function (data, callback) {
+  const msg = (data.isSSL) ? 'Hello World!!' : 'You have been hacked !!!';
+  callback(200, {'msg': msg});
+}
+
 // Not found handler
 handlers.notFound = function (data, callback) {
   callback(404);
@@ -116,5 +126,6 @@ handlers.notFound = function (data, callback) {
 
 // Define the request router
 var router = {
-  'ping': handlers.ping
+  'ping': handlers.ping,
+  'hello': handlers.hello
 };
