@@ -40,7 +40,7 @@ if (fs.existsSync('./https/key.pem') && fs.existsSync('./https/cert.pem')) {
 }
 
 // All the server logic for both the http and https server
-var unifiedServer = (req, res) => {
+const unifiedServer = (req, res) => {
   // Parse the url
   const parsedUrl = url.parse(req.url, true);
 
@@ -106,7 +106,7 @@ var unifiedServer = (req, res) => {
 };
 
 // Define all the handlers
-var handlers = {};
+let handlers = {};
 
 // Ping handler
 handlers.ping = (data, callback) => {
@@ -125,7 +125,7 @@ handlers.notFound = (data, callback) => {
 };
 
 // Define the request router
-var router = {
+const router = {
   'ping': handlers.ping,
   'hello': handlers.hello
 };
