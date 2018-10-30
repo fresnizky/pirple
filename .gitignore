@@ -62,3 +62,6 @@ typings/
 
 # https certificates
 https 
+
+# data folder
+.data

@@ -9,7 +9,7 @@ const https = require('https');
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 const config = require('./lib/config');
-const fs = require('fs'); 
+const fs = require('fs');
 const handlers = require('./lib/handlers');
 const helpers = require('./lib/helpers');
 
@@ -60,7 +60,7 @@ const unifiedServer = (req, res) => {
   const headers = req.headers;
 
   // Verify if the request is encrypted
-  const isSSL = typeof(req.socket.encrypted) == 'boolean' ? req.socket.encrypted : false;
+  const isSSL = typeof (req.socket.encrypted) == 'boolean' ? req.socket.encrypted : false;
 
   // Get the payload,if any
   const decoder = new StringDecoder('utf-8');
@@ -111,5 +111,6 @@ const unifiedServer = (req, res) => {
 const router = {
   'ping': handlers.ping,
   'hello': handlers.hello,
-  'users': handlers.users
+  'users': handlers.users,
+  'tokens': handlers.tokens
 };
