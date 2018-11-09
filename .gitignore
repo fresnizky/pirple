@@ -65,3 +65,6 @@ https
 
 # data folder
 .data
+
+# logs folder
+.logs
